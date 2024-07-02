@@ -1,0 +1,98 @@
+.boton {
+  border: none;
+  /* border: 1px solid red; */
+  inline-size: 32px;
+  block-size: 32px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+.boton.play{
+  background-image: url(./images/play.svg);
+}
+.boton.pause{
+  background-image: url(./images/pause.svg);
+}
+/* .boton:active{
+  transform: scale(.9);
+} */
+
+#forward {
+  background-image: url(./images/+10.svg);
+}
+#rewind {
+  background-image: url(./images/-10.svg);
+}
+.wrapper{
+  max-inline-size: 900px;
+  margin: auto;
+}
+.player{
+  margin-block-start: 100px;
+  /* border: 10px solid red; */
+  position: relative;
+}
+/* Mi mision es q el reproductor y el titulo no se salgan del border del video */
+.player video{
+  inline-size: 100%;
+  aspect-ratio: 16/9;
+  vertical-align: middle;
+  object-fit: cover;
+}
+.player-title{
+  position: absolute;
+  inset-block-start:0;
+  inset-inline-start:20px;
+}
+/* va a hacer el margen desde el elemento relativo más cercano */
+/* bloque es eje y(top-botton) */
+/* inline es eje x(left-right) */
+.player-actions{
+  position: absolute;
+  inset: 0;
+  /* inset-inline-start: 0;
+  inset-inline-end: 0;
+  inset-block-start: 0;
+  inset-block-end: 0; */
+  /* el modelo logico */
+  /* el modelo fisico seria: top,botton,left,right */
+  /* una vez k mi elemento esta ocupando todo el espacio disponible, ahora lo puedo centrar tanto vertial | como horizonatlemente -  */
+  /* margin: 0 auto; x una razon no me funciona */
+  /* border: 10px solid blue; */
+  display: flex;
+  /* con flex,los hijos ahora se pueden alinear en el */
+  justify-content: center;/*-,eje principal*/
+  align-items: center;/*|,eje transversal*/
+  gap: 20px;/*espaciado de elementos*/
+  /* lo acabo de hacer de una manera muy practica y pragmatica en este momento,realmente lleva un contexto teorico bien complejo */
+
+  /* los botones dejan de funcionar xk segun como se fueron renderizando los elementos, mi video es el ultimo en ser renderizado y aunque los otros elementos se vean visualmente encima de el realmente en algo k se llama el stack de como los elementos fueron puestos en html, el video es el ultimo,con z.index cambio el satck */
+  /* z-index: 10; */
+  /* la otra accion es mover en html en video y ponerlo al inicio de todo*/
+}
+/* los h,parrafo,etc x defecto tienen margenes */
+.player-progress{
+  /* background-color: yellow; */
+  position: absolute;
+  inset-block-end: 0;/*parte inferior*/
+  inset-inline: 0;/*k abarque todo el espacio*/
+  display: flex;
+  padding: 10px
+}
+.player-progress input{
+  /* inline-size: 100%; en vez de darle eso se pone flex 1;flex layout y componentes */
+  flex: 1;
+}
+.player-overlay{
+  position: absolute;
+  inset: 0;
+  /* e igual k los botones de rep se espanda hacia todos los extremos */
+  opacity: 0;
+  transition: .3s opacity;
+}
+.player:hover .player-overlay{
+  opacity: 1;
+}
+/* hosting javascript leonidas */
+/* 5 */

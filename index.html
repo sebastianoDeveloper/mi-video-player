@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./estilos/style.css">
+  <title>Video Player</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="player">
+      <video poster="./estilos/images/poster.jpg" src="https://media.w3.org/2010/05/sintel/trailer.mp4"></video>
+      <div class="player-overlay">
+        <h2 class="player-title">Musica para programar</h2>
+        <div class="player-actions">
+          <button class="boton" id="rewind" aria-label="Retroceder 5s"></button>
+          <button class="boton" id="playPauseBtn" aria-label="PLAY/PAUSE"></button>
+          <button class="boton" id="forward" aria-label="Avanzar 5s"></button>
+          <!-- <button class="boton" id="rapido"></button> -->
+          <!-- <button class="boton" id="lento"></button> -->
+        </div>
+        <!-- <video poster="./estilos/images/poster.jpg" muted width="600" src="./estilos/videos/lofi.mp4"></video> -->
+        <div class="player-progress">
+          <input id="progress" type="range" min="0" value="0" step="1">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const $video = document.querySelector('video')
+    const $playPausebtn = document.querySelector('#playPauseBtn')
+    const $forwardbtn = document.querySelector('#forward')
+    const $rewindBtn = document.querySelector('#rewind')
+    const $progress = document.querySelector('#progress')
+
+    $playPausebtn.addEventListener('click', togglePlayPause)
+    $forwardbtn.addEventListener('click', forwardVideo)
+    $rewindBtn.addEventListener('click', rewindVideo)
+    $video.addEventListener('loadedmetadata', handleLoaded)
+    $video.addEventListener('timeupdate', handleTimeUpdate)
+    $progress.addEventListener('input', handleInput)
+
+    function togglePlayPause() {
+      if ($video.paused) {
+        $video.play()
+        $playPausebtn.classList.remove('play')
+        $playPausebtn.classList.add('pause')
+      } else {
+        $video.pause()
+        $playPausebtn.classList.remove('pause')
+        $playPausebtn.classList.add('play')
+
+      }
+    }
+    $playPausebtn.classList.add('play')
+
+    function rewindVideo() {
+      $video.currentTime -= 10; // Retrocede 10 segundos
+    }
+
+    function forwardVideo() {
+      $video.currentTime += 10; // Avanza 10 segundos
+    }
+
+    function handleLoaded(params) {
+      $progress.max = $video.duration
+      console.log('ha cargado', $video.duration);
+    }
+    function handleTimeUpdate(params) {
+      $progress.value = $video.currentTime
+      // console.log('xd', $video.currentTime);
+    }
+    function handleInput(params) {
+      $video.currentTime = $progress.value
+      console.log($progress.value);
+    }
+  </script>
+</body>
+
+</html>
